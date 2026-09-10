@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="在线工具箱合集 - 免费实用的文本、计算、编码转换、颜色、时间等在线工具">
+  <meta name="keywords" content="在线工具,工具箱,文本工具,计算器,编码转换,BMI,Base64,JSON格式化">
+  <title>在线工具箱合集 - 实用工具大全</title>
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧰</text></svg>">
+</head>
+<body>
+  <div class="app-container">
+    <header class="app-header">
+      <div class="header-content">
+        <a href="#/" class="logo" aria-label="回到首页">
+          <span class="logo-icon">🧰</span>
+          <span class="logo-text">在线工具箱</span>
+        </a>
+        <div class="header-actions">
+          <button id="theme-toggle" class="theme-toggle" aria-label="切换主题">
+            <span class="theme-icon-light">☀️</span>
+            <span class="theme-icon-dark">🌙</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="app-main" class="app-main">
+      <div id="view-home" class="view view-home">
+        <section class="hero-section">
+          <div class="hero-inner">
+            <h1 class="hero-title">🛠️ 在线工具箱合集</h1>
+            <p class="hero-subtitle">40+ 实用在线工具，文本、计算、编码、颜色、时间一站式解决</p>
+            <div class="search-wrapper">
+              <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input
+                  id="search-input"
+                  type="text"
+                  class="search-input"
+                  placeholder="搜索工具名称、功能、关键词..."
+                  autocomplete="off"
+                  aria-label="搜索工具"
+                >
+                <button id="search-clear" class="search-clear" aria-label="清除搜索" style="display:none;">✕</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="category-section">
+          <div class="category-tabs" id="category-tabs">
+            <button class="category-tab active" data-category="all">
+              <span class="tab-icon">📚</span>
+              <span class="tab-label">全部</span>
+              <span class="tab-count" id="count-all">0</span>
+            </button>
+            <button class="category-tab" data-category="text">
+              <span class="tab-icon">📝</span>
+              <span class="tab-label">文本工具</span>
+              <span class="tab-count" id="count-text">0</span>
+            </button>
+            <button class="category-tab" data-category="calc">
+              <span class="tab-icon">🧮</span>
+              <span class="tab-label">计算工具</span>
+              <span class="tab-count" id="count-calc">0</span>
+            </button>
+            <button class="category-tab" data-category="convert">
+              <span class="tab-icon">🔄</span>
+              <span class="tab-label">编码转换</span>
+              <span class="tab-count" id="count-convert">0</span>
+            </button>
+            <button class="category-tab" data-category="color">
+              <span class="tab-icon">🎨</span>
+              <span class="tab-label">颜色工具</span>
+              <span class="tab-count" id="count-color">0</span>
+            </button>
+            <button class="category-tab" data-category="time">
+              <span class="tab-icon">⏱️</span>
+              <span class="tab-label">时间工具</span>
+              <span class="tab-count" id="count-time">0</span>
+            </button>
+            <button class="category-tab" data-category="crypto">
+              <span class="tab-icon">🔒</span>
+              <span class="tab-label">加密哈希</span>
+              <span class="tab-count" id="count-crypto">0</span>
+            </button>
+            <button class="category-tab" data-category="unit">
+              <span class="tab-icon">📐</span>
+              <span class="tab-label">单位换算</span>
+              <span class="tab-count" id="count-unit">0</span>
+            </button>
+            <button class="category-tab" data-category="dev">
+              <span class="tab-icon">💻</span>
+              <span class="tab-label">开发工具</span>
+              <span class="tab-count" id="count-dev">0</span>
+            </button>
+            <button class="category-tab" data-category="other">
+              <span class="tab-icon">✨</span>
+              <span class="tab-label">其他</span>
+              <span class="tab-count" id="count-other">0</span>
+            </button>
+          </div>
+        </section>
+
+        <section class="tools-section">
+          <div id="tools-loading" class="tools-loading">
+            <div class="loading-spinner"></div>
+            <p>正在加载工具列表...</p>
+          </div>
+          <div id="tools-empty" class="tools-empty" style="display:none;">
+            <div class="empty-icon">🔍</div>
+            <h3>没有找到匹配的工具</h3>
+            <p>试试其他关键词或切换分类吧</p>
+          </div>
+          <div id="tools-grid" class="tools-grid"></div>
+        </section>
+      </div>
+
+      <div id="view-tool" class="view view-tool" style="display:none;">
+        <div class="tool-page">
+          <nav class="tool-breadcrumb">
+            <a href="#/" class="breadcrumb-link">
+              <span>←</span> 返回工具列表
+            </a>
+          </nav>
+          <div id="tool-detail" class="tool-detail"></div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="app-footer">
+      <div class="footer-content">
+        <p>🧰 在线工具箱合集 · 纯前端实现 · 数据本地处理更安全</p>
+        <p class="footer-links">
+          <span>共 <strong id="footer-total">0</strong> 个实用工具</span>
+        </p>
+      </div>
+    </footer>
+
+    <button id="back-to-top" class="back-to-top" aria-label="回到顶部" style="display:none;">
+      ↑
+    </button>
+  </div>
+
+  <script src="./js/app.js" type="module"></script>
+</body>
+</html>
